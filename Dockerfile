@@ -19,9 +19,14 @@ RUN \
     docker-php-ext-configure sockets && \
     docker-php-ext-configure mcrypt && \
     docker-php-ext-install pdo_mysql opcache exif gd sockets mcrypt
+
+RUN \
+    apk add --no-cache --virtual .mongodb-ext-build-deps openssl-dev pcre-dev
     
 RUN \
     pecl install redis && \
+    pecl install mongodb && \
+    apk del .mongodb-ext-build-deps && \
     pecl clear-cache && \
-    docker-php-ext-enable redis.so && \
+    docker-php-ext-enable redis mongodb && \
     docker-php-source delete
