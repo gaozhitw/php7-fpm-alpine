@@ -23,7 +23,8 @@ RUN \
         --with-freetype-dir=/usr/include && \
     docker-php-ext-configure intl && \
     docker-php-ext-configure sockets && \
-    docker-php-ext-install pdo_mysql opcache exif gd intl sockets
+    docker-php-ext-configure bcmath && \
+    docker-php-ext-install pdo_mysql opcache exif gd intl sockets bcmath
 
 RUN \
     apk add --no-cache --virtual .mongodb-ext-build-deps openssl-dev pcre-dev
